@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es-mx">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} Inicio {% endblock title %}</title>
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+
+  <body>
+    <div class="main">
+      <nav class="navbar bg-dark text-white">
+
+        {% block title_agenda %}
+          <span class="navbar-brand mb-0 h1">Agenda - Contactos</span>
+        {% endblock title_agenda %}
+
+      </nav>
+
+
+
+      {% block btn_agregar_contacto %}
+      <div class="row p-0 m-0">
+        <div class="block-addItem col-12 pt-4">
+          <div class="row align-items-center justify-content-center">
+            <div class="col-md-12 col-12 col-lg-6 m-0 d-flex justify-content-end pr-3 pr-sm-4 pr-lg-0">
+              <a class="btn btn-primary mr-md-2 mr-lg-0" href="{% url 'createContact' %}" role="button">Agregar contacto</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endblock btn_agregar_contacto %}
+
+
+
+      {% block cuerpo_acciones %}
+
+      {% endblock cuerpo_acciones %}
+
+
+      {% block list_contactos_agregados %}
+
+
+
+
+      
+      <div class="row p-0 m-0">
+        <div class="col-12 row p-0 pt-4 m-0 justify-content-center">
+          <form class="form-container border rounded col-11 col-lg-6 p-0">
+            <div class="form__body py-3 px-4 block-overflow block-overflow--list">
+              <div>
+                <div class="row p-0 m-0">
+                  <div class="col-12 p-0 m-0">
+                    <div class="row p-0 m-0">
+
+                      {% for contacto in contactos %}
+                      <div class="block-contact form-group col-12 p-0 py-3 m-0 border-bottom d-flex align-items-center justify-content-between">
+                        <div>
+                          <div class="d-flex align-items-center">
+                            <span class="font-weight-bold">{{ contacto.nombre }} {{ contacto.apellidos }}</span>
+                          </div>
+      
+                          <div>
+                            <a class="badge badge-secondary" href="{% url 'editContact' contacto.nombre %}" role="button">Editar</a>
+                            <a class="badge badge-danger" href="#" role="button">Eliminar</a>
+                          </div>
+                        </div>
+      
+                        <div class="text-dark">
+                          <span>{{ contacto.fecha_nacio }}</span>
+                        </div>
+                      </div>
+                      {% endfor %}
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      {% endblock list_contactos_agregados %}
+
+
+
+      <div class="py-3 bar bar--footer position-fixed bg-light"></div>
+    </div>
+
+    <script src="{% static 'jquery/jquery-3.6.0.min.js' %}"></script>
+    <script src="{% static 'prueba/gijgo.min.js' %}"></script>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/index.js' %}"></script>
+  </body>
+</html>

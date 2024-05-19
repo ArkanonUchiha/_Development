@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang='es-MX'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1' />
+    <meta name='description' content='Este es un ejemplo de un componente web nativo que pertenece a Google.' />
+    <title>Componente Web de Google Maps</title>
+    <!-- ESTA METATAG ES IMPORTANTE PARA UTILIZAR WEB COMPONENTS -->
+    <link rel="import" href="bower_components/google-map/google-map.html">
+  </head>
+
+  <body>
+    <style>
+      google-map {
+        height: 300px;
+      }
+    </style>
+
+
+<!-- EL VIDEO QUE ESTABA VIENDO ERA DEL 2015, HOY EN DIA (OCTUBRE 2021) YA NO FUNCIONA PORQUE CAMBIARON VARIAS COSAS PARA ESE WEB COMPONENT -->
+
+<google-map fit-to-markers api-key="AIzaSyD3E1D9b-Z7ekrT3tbhl_dy8DCXuIuDDRc">
+  <google-map-marker latitude="37.78" longitude="-122.4" draggable="true"></google-map-marker>
+</google-map>
+    
+    <!-- <script src='js/ #NOMBRE_DE_SCRIPT.js'></script> -->
+  </body>
+</html>

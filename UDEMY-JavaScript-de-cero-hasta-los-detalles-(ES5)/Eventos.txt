@@ -1,0 +1,167 @@
+# EVENTOS - EVENTS
+
+Los eventos son acciones que hacen que se dispare o ejecute una función. Por ejemplo:
+
+* click
+* focus
+
+Existen varios tipos de eventos nativos y aparte los que puede crear el desarrollador. 
+
+Los eventos se pueden agregar y disparar desde cualquier elemento HTML: botones, enlaces, div's, etc.
+
+* [Referencia de Eventos | MDN (mozilla.org)](https://developer.mozilla.org/es/docs/Web/Events#eventos_espec%C3%ADficos_de_mozilla)
+
+* [Lista de eventos JavaScript. (on) click, dblclick, mouseover, mouseout, change, submit, keypress (CU01159E) (aprenderaprogramar.com)](https://www.aprenderaprogramar.com/index.php?option=com_content&view=article&id=842:lista-de-eventos-javascript-on-click-dblclick-mouseover-mouseout-change-submit-keypress-cu01159e&catid=78&Itemid=206)
+
+**DEFINICIÓN DE CHAT GPT:** Los eventos en JavaScript son acciones o situaciones que ocurren en una página web, como por ejemplo: el clic en un botón, el envío de un formulario, la carga de una página, entre otros. JavaScript permite capturar y reaccionar a estos eventos a través de la asignación de funciones o manejadores de eventos a los elementos HTML.
+
+***
+
+### EJEMPLOS DE EVENTOS - EVENTOS Y FUNCIONES EN EL HTML
+
+En estos ejemplos se usa directamente en el HTML el tipo de evento y la función con la que se le vincula. Pero esta no es una buena práctica. La mejor manera de manejarlos y ordenarlos es desde el propio JS.
+
+Cuando los eventos se usan en el HTML se usa la palabra "on", seguido del nombre del evento. Cuando se usa el método `addEventListener` no se escribe la palabra "on".
+
+		    <button onclick="eventoClick()">EVENTO CLICK</button>
+		    
+		    <button ondblclick="eventoDobleClick()">EVENTO DOBLE CLICK</button>
+		    
+		    <input type="text" onfocus="eventoFocus()">
+		    
+		    <input type="text" onblur="eventoBlur()">
+		    
+		    <input type="text" onmouseenter="eventoMouseEnter()">
+		    
+		    <input type="text" onmouseout="eventoMouseOut()">
+
+		    function eventoClick() {
+			    console.log("SOY UN EVENTO DE CLICK");
+		    }
+		    
+		    function eventoDobleClick() {
+			    console.log("SOY UN EVENTO DE DOBLE CLICK");
+		    }
+		    
+		    function eventoFocus() {
+			    console.log("SOY UN EVENTO DE FOCUS");
+		    }
+		    
+		    function eventoBlur() {
+			    console.log("SOY UN EVENTO DE BLUR");
+		    }
+		    
+		    function eventoMouseEnter() {
+			    console.log("SOY UN EVENTO DE MOUSE ENTER");
+		    }
+		    
+		    function eventoMouseOut() {
+			    console.log("SOY UN EVENTO DE MOUSE OUT");
+		    }
+
+***
+
+### EJEMPLOS DE EVENTOS - EVENTOS Y FUNCIONES CON ADDEVENTLISTENER
+
+**DEFINICION DE CHAT GPT:** `addEventListener` es un método en JavaScript que permite asignar una función o un manejador de eventos a un elemento HTML. Cuando un evento especificado ocurre en el elemento, la función o manejador de eventos es invocado y ejecuta una acción determinada.
+
+**SINTAXIS:**
+`element.addEventListener(event, handler);`
+
+-   `element` es el elemento HTML al que se le quiere asignar el manejador de eventos.
+-   `event` es el nombre del evento que queremos capturar, por ejemplo "click", "submit", "load", etc.
+-   `handler` es la función o manejador de eventos que se invocará cuando el evento ocurra.
+
+**NOTA IMPORTANTE:** Las funciones manejadoras de eventos poseen un único argumento que es un objeto especial llamado `event`. Cada evento posee un objeto `event` con propiedades diferentes.
+
+`element.addEventListener(event, function(event) {});`
+
+[6.3. Obteniendo información del evento (objeto event) (Introducción a JavaScript) (uniwebsidad.com)](https://uniwebsidad.com/libros/javascript/capitulo-6/obteniendo-informacion-del-evento-objeto-event)
+
+		    <button  id="eventoClick">EVENTO CLICK</button>
+		    
+		    <button  id="eventoDobleClick">EVENTO DOBLE CLICK</button>
+		    
+		    <input  type="text" id="eventoFocus">
+		    
+		    <input  type="text" id="eventoBlur">
+		    
+		    <input  type="text" id="eventoMouseEnter">
+		    
+		    <input  type="text" id="eventoMouseOut">
+
+
+		    const objEventoClick = document.getElementById("eventoClick");
+		    objEventoClick.addEventListener("click", eventoClick);
+		    
+		    function eventoClick(event)  {
+			    console.log("SOY UN EVENTO DE CLICK");
+			    console.log(event);
+		    }
+		    
+		    
+		    const objEventoDobleClick = document.getElementById("eventoDobleClick");
+		    objEventoDobleClick.addEventListener("dblclick", eventoDobleClick);
+		    
+		    function eventoDobleClick(event)  {
+			    console.log("SOY UN EVENTO DE DOBLE CLICK");
+			    console.log(event);
+		    }
+		    
+		    
+		    const objEventoFocus = document.getElementById("eventoFocus");
+		    objEventoFocus.addEventListener("focus", eventoFocus);
+		    
+		    function eventoFocus(event)  {
+			    console.log("SOY UN EVENTO DE FOCUS");
+			    console.log(event);
+		    }
+		    
+		    
+		    const objEventoBlur = document.getElementById("eventoBlur");
+		    objEventoBlur.addEventListener("blur", eventoBlur);
+		    
+		    function eventoBlur(event)  {
+			    console.log("SOY UN EVENTO DE BLUR");
+			    console.log(event);
+		    }
+		    
+		    
+		    const objEventoMouseEnter = document.getElementById("eventoMouseEnter");
+		    objEventoMouseEnter.addEventListener("mouseenter", eventoMouseEnter);
+		    
+		    fuction eventoMouseEnter(event)  {
+			    console.log("SOY UN EVENTO DE MOUSE ENTER");
+			    console.log(event);
+		    }
+		    
+		    
+		    const objEventoMouseOut = document.getElementById("eventoMouseOut");
+		    objEventoMouseOut.addEventListener("mouseout", eventoMouseOut);
+		    
+		    function eventoMouseOut(event)  {
+			    console.log("SOY UN EVENTO DE MOUSE OUT");
+			    console.log(event);
+		    }
+
+*** 
+
+### EJEMPLO OBTENER EL TEXTO SELECCIONADO
+
+El evento `onmouseup` se dispara cuando el botón de clic izquierdo se deje de aplastar.
+
+		    document.onmouseup = function(event)  {
+			    let textoSeleccionado = window.getSelection().toString();
+		    
+			    console.log(textoSeleccionado);
+		    };
+
+> Written with [StackEdit](https://stackedit.io/).
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbNDY4Njc5ODQ4LDE2NTcwODY3OTQsLTE3OT
+M4MTgyMzgsLTE1ODU0NzI4ODAsLTEzOTU4ODk3NzksLTQ2MjAy
+NjMwMSwtMTMyOTc2NDI1MCw2NTY3NDc1MjYsLTE5Mjk0MDc3Mz
+YsLTE5NzYxMzc5NDIsMTQ3NDY3NTM4MSwzNjI5MTk1ODAsODky
+ODkwMTIxLC0xNDU1ODI4MTMzLC0yMTQ1NjE3Mjk2LC05MDg5OD
+A3NDZdfQ==
+-->

@@ -1,0 +1,198 @@
+# FUNCIONES ESPECIALES: call(), apply() Y bind()
+
+Toda función de Javascript posee 3 métodos inherentes en su prototipo:
+
+1. **call():** Con este método se puede cambiar el valor de `this`.
+	DEFINICIÓN DE CHAT GPT: El método `call()` en JavaScript es un método de las funciones que permite invocar una función y especificar el valor de `this` en el momento de la invocación. A diferencia del método `bind()`, que crea una nueva función con un `this` fijo, el método `call()` invoca inmediatamente la función y le permite al programador especificar el valor de `this` en ese momento. Esto es útil para reutilizar funciones con diferentes valores de `this` sin tener que crear nuevas funciones.
+
+2. **apply():** Con este método se puede cambiar el valor de `this`.
+
+DEFINICIÓN DE CHAT GPT: El método `apply()` en JavaScript es un método de las funciones que funciona de manera similar al método `call()`, con la diferencia de que en lugar de aceptar argumentos individuales, acepta un arreglo de argumentos. Al igual que `call()`, `apply()` permite invocar una función y especificar el valor de `this` en el momento de la invocación. Esto es útil para reutilizar funciones con diferentes valores de `this` y argumentos, sin tener que crear nuevas funciones.
+
+3. **bind():** Con este método se puede cambiar el valor de `this`.
+
+	DEFINICIÓN DE CHAT GPT: El método `bind()` en JavaScript es un método de las funciones que permite crear una nueva función con un `this` asignado de forma explícita. Es decir, permite fijar el valor de `this` dentro de la función a un objeto específico, independientemente de cómo se llame la función. Esto es útil en situaciones donde se necesita asegurar que el valor de `this` sea un objeto en particular, especialmente cuando se trabaja con eventos o callbacks.
+
+***
+
+### EJEMPLO DONDE SE QUIERE HACER USO DE UN MÉTODO QUE SE CUENTRA EN OTRO CONTEXTO
+
+En este ejemplo se intenta ejecutar el método `imprimir` fuera del contexto en donde se encuentra definido el método. El resultado da un error porque no se conoce al método `imprimir`.
+
+		    const car =  {
+			    marca:  "Ferrari",
+			    modelo:  "Enzo",
+			    color:  "Rojo",
+			    imprimir:  function()  {
+				    let salida =  this.marca +  "  "  +  this.modelo +  "  "  +  this.color;
+				    console.log(salida); // Ferrari Enzo Rojo
+				    return salida;
+			    }
+		    };
+		    
+		    const  logCar  =  function(arg1,  arg2)  {
+			    console.log("Carro: ",  this.imprimir()); // Uncaught TypeError: Cannot read properties of undefined (reading 'imprimir')
+			    console.log("Argumentos: ", arg1, arg2); // Argumentos:  undefined undefined
+		    };
+		    
+		    car.imprimir(); // Ferrari Enzo Rojo
+		    
+		    logCar(); // Uncaught TypeError: Cannot read properties of undefined (reading 'imprimir') // Argumentos:  undefined undefined
+
+***
+
+### USANDO EL MÉTODO bind()
+
+Utilizando el ejemplo anterior pero haciendo sus respectivas modificaciones usando el método `bind()`.
+
+**OBSERVACIÓN:** Al usar el método `bind()`, a pesar de que tiene paréntesis no ejecuta la función que lo utiliza (en este caso es `logCar`), sino que setea el objeto que está dentro de los paréntesis (en este caso es `car`) al valor de `this` o como valor de `this`, o sea , se ejecuta el método `bind`, y la nueva función que guarda este bindeo (en este caso es `logCarBind`) se ejecuta después.
+
+**SINTAXIS:**
+
+En donde "objeto" es el objeto que será el valor de `this`.
+
+`.bind(objeto)`
+
+		    const car =  {
+			    marca:  "Ferrari",
+			    modelo:  "Enzo",
+			    color:  "Rojo",
+			    imprimir:  function()  {
+				    let salida =  this.marca +  "  "  +  this.modelo +  "  "  +  this.color;
+				    console.log(salida); // Ferrari Enzo Rojo
+				    return salida;
+			    }
+		    };
+		    
+		    const  logCar  =  function(arg1,  arg2)  {
+			    console.log("Carro: ",  this.imprimir()); // Carro:  Ferrari Enzo Rojo
+			    console.log("Argumentos: ", arg1, arg2); // Argumentos:  ABC XYZ
+		    };
+		    
+		    const logCarBind = logCar.bind(car);
+		    
+		    logCarBind("ABC",  "XYZ"); // Ferrari Enzo Rojo // Carro:  Ferrari Enzo Rojo // Argumentos:  ABC XYZ
+
+***
+
+### USANDO EL MÉTODO call()
+
+Utilizando el ejemplo anterior pero haciendo sus respectivas modificaciones usando el método `call()`.
+
+**OBSERVACIÓN:** A diferencia del método `bind`, al usar `call` está sí invoca la función (en este caso es `logCar`) y significa que no crea una nueva función. Pero en este ejemplo primer ejemplo guardo en la constante `logCarCall` únicamente la referencia de la función expresada `logCar` porque no tiene los paréntesis, si los tuviera estaría ejecutando la función `logCar`. La función que guarda este bindeo (en este caso es `logCarCall`) se ejecuta después.
+
+**SINTAXIS:**
+
+En donde "objeto" es el objeto que será el valor de `this`.
+
+`.call(objeto)`
+
+#### EJEMPLO USANDO UNA CONSTANTE PARA GUARDAR LA REFERENCIA DE LA FUNCIÓN EXPRESADA
+
+		    const car =  {
+			    marca:  "Ferrari",
+			    modelo:  "Enzo",
+			    color:  "Rojo",
+			    imprimir:  function()  {
+				    let salida =  this.marca +  "  "  +  this.modelo +  "  "  +  this.color;
+				    console.log(salida); // Ferrari Enzo Rojo
+				    return salida;
+			    }
+		    };
+		    
+		    const  logCar  =  function(arg1,  arg2)  {
+			    console.log("Carro: ",  this.imprimir()); // Carro:  Ferrari Enzo Rojo
+			    console.log("Argumentos: ", arg1, arg2); // Argumentos:  ABC XYZ
+		    };
+		    
+		    const logCarCall = logCar;
+		    
+		    logCarCall.call(car,  "123",  "890"); // Ferrari Enzo Rojo // Carro:  Ferrari Enzo Rojo // Argumentos:  123 890
+
+#### EJEMPLO USANDO DIRECTAMENTE call() EN LA FUNCIÓN EXPRESADA
+
+		    const car =  {
+			    marca:  "Ferrari",
+			    modelo:  "Enzo",
+			    color:  "Rojo",
+			    imprimir:  function()  {
+				    let salida =  this.marca +  "  "  +  this.modelo +  "  "  +  this.color;
+				    console.log(salida); // Ferrari Enzo Rojo
+				    return salida;
+			    }
+		    };
+		    
+		    const  logCar  =  function(arg1,  arg2)  {
+			    console.log("Carro: ",  this.imprimir()); // Carro:  Ferrari Enzo Rojo
+			    console.log("Argumentos: ", arg1, arg2); // Argumentos:  ABC XYZ
+		    };
+		    
+		    logCar.call(car,  "123",  "890"); // Ferrari Enzo Rojo // Carro:  Ferrari Enzo Rojo // Argumentos:  123 890
+
+***
+
+### USANDO EL MÉTODO apply()
+
+Entre el método `call()` y `apply()` hay similitudes, exceptuando que el método `apply()` solo acepta 2 párametros: El primero es un objeto que será el valor de `this`, y el segundo es un arreglo que contendrá n cantidad de parámetros.
+
+Eso quiere decir que `apply()` sí invoca la función (en este caso es `logCar`) y significa que no crea una nueva función.
+
+**SINTAXIS:**
+
+En donde "objeto" es el objeto que será el valor de `this`, y `arg` son los parámetros.
+
+`.apply(objeto, [arg1, arg2, ...n])`
+
+#### EJEMPLO USANDO DIRECTAMENTE apply() EN LA FUNCIÓN EXPRESADA
+
+		    const car =  {
+			    marca:  "Ferrari",
+			    modelo:  "Enzo",
+			    color:  "Rojo",
+			    imprimir:  function()  {
+				    let salida =  this.marca +  "  "  +  this.modelo +  "  "  +  this.color;
+				    console.log(salida); // Ferrari Enzo Rojo
+				    return salida;
+			    }
+		    };
+		    
+		    const  logCar  =  function(arg1,  arg2)  {
+			    console.log("Carro: ",  this.imprimir()); // Carro:  Ferrari Enzo Rojo
+			    console.log("Argumentos: ", arg1, arg2); // Argumentos:  ABC XYZ
+		    };
+		    
+		    logCar.apply(car, ["Lunes",  "Martes"]); // Ferrari Enzo Rojo // Carro:  Ferrari Enzo Rojo // Argumentos:  Lunes Martes
+
+*** 
+
+### CASOS EN DONDE SE PUEDEN USAR - FUNCIONES PRESTADAS
+
+		    const car =  {
+			    marca:  "Ferrari",
+			    modelo:  "Enzo",
+			    color:  "Rojo",
+			    imprimir:  function()  {
+				    let salida =  this.marca +  "  "  +  this.modelo +  "  "  +  this.color;
+				    console.log(salida); // Ford Corvette Plata
+				    return salida;
+			    }
+		    };
+		    
+			const car2 =  {
+			    marca:  "Ford",
+			    modelo:  "Corvette",
+			    color:  "Plata"
+		    };
+		    
+		    car.imprimir.call(car2); // Ford Corvette Plata
+
+> Written with [StackEdit](https://stackedit.io/).
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbMTM4NDIxMjU1LC0yMDk4NjY3NzgzLC0yND
+IyODYyOTQsNDcwMjE4MDk2LC0yMTM1NjUxNDc2LDc3ODE3ODI0
+MSwtMjExNzcwNjY2OSw2NzkzMjM5NDAsLTE2NDU1MjgwMDksLT
+EzNDcxMjMyODEsLTE1OTYxMjk2ODgsLTEzMDA5MzM5OTgsLTIw
+NTE2OTE0NzcsMTU4MjUwMzU3OSwtMTY5MTUzMDM0MSwtMjA1OT
+cxMzYyNCwyODk0MDI2NTksMzcxMDg1MTgwLC01MjMzMjc3NTAs
+LTE2NDMyNTM5MTVdfQ==
+-->

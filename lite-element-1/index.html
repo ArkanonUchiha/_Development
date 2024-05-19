@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang='es-MX'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta name='viewport' content='width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1' />
+    <meta name='description' content='Creando Web Components con la librería LitElement' />
+    <title>Web Components con LitElement</title>
+  </head>
+
+  <body>
+
+    <h1>Bienvenidos</h1>
+
+    <!-- ESTE ES UN CUSTOM ELEMENT, OJITO CON EL GUION INTERMEDIO -->
+    <!-- "QUIEN" ES UNA PROPIEDAD DEL WEB COMPONENT, PERO AQUI LA PROPIEDAD SE USA COMO UN ATRIBUTO HTML DE LA ETIQUETA CUSTOM ELEMENT -->
+    <hola-mundo quien="Edwin Brandon"></hola-mundo>
+
+    <my-counter></my-counter>
+
+<!-- EL TYPDE MODULO ESTABLECE QUE NO SE TRABAJARA CON UN JS TRADICIONAL, SINO CON UN ARCHIVO MODULO JS, Y ESTO DA LA HABILIDAD DE IMPORTAR MODULOS -->
+    <!-- <script src="./src/hola-mundo.js" type="module"></script> -->
+    <script src="./src/index.js" type="module"></script>
+  </body>
+</html>

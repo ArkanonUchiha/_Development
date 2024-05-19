@@ -1,0 +1,184 @@
+# ESCAPE, UNESCAPE Y COOKIES
+
+* Las cookies es información que se puede guardar en el equipo del usuario.
+* El desarrollador puede crear estas cookies.
+* Las cookies se mantienen aunque el navegador se reinicie o se puede programar su tiempo de vida para que pasando la fecha se elimine la cookie.
+
+### CREANDO UNA COOKIE - PROPIEDAD COOKIE
+
+	    document.cookie = "nombre=brandon";
+
+### CONSULTAR COOKIES GUARDADAS
+
+	    let cookies = document.cookie;
+	    console.log(cookies); // nombre=brandon
+
+----------------------------------------------------------------------------------
+
+Si del ejemplo anterior, comento la línea en donde se crea la cookie, en consola todavía saldrá el valor de la cookie que había asignado. Incluso si cierro el navegador y vuelvo a ejecutar, el valor seguirá saliendo en consola.
+
+	    LINEA COMENTADA
+	    //document.cookie = "nombre=brandon";
+
+	    let cookies = document.cookie;
+	    console.log(cookies); // nombre=brandon
+
+* La persistencia del valor seguirá a menos que se le programe una fecha de expiración.
+ * Es buena práctica programarles una fecha de expiración.
+* Para poder ver las cookies que el navegador tiene almacenadas hay que ir a la configuración del navegador y buscar la sección de cookies (cada navegador tiene rutas diferentes para poder encontrarlas).
+
+----------------------------------------------------------------------------------
+
+### CREANDO MÁS DE UNA COOKIE
+
+	    document.cookie = "nombre=brandon";
+	    document.cookie = "apellido=lopez";
+	    
+	    let cookies2 = document.cookie;
+	    console.log(cookies2); // nombre=brandon; apellido=lopez
+
+----------------------------------------------------------------------------------
+
+### COSAS A TOMAR EN CUENTA AL CREAR COOKIES
+
+* Cuando hay más de una cookie, éstas son separadas por punto y coma (;) y después un espacio en blanco.
+* Prepararlas por algún proceso especial que las "limpie" de caracteres especiales para que no haya un comportamiento inusual (por ejemplo, letra ñ, simbolo de punto y coma, barra invertida, etc).
+* Cuando JS encuentra un "punto y coma", corta la definición porque piensa que ha acabado y lo que sigue es otra cosa.
+
+	    document.cookie = "nombre=bran;don";
+	    let cookie3 = document.cookie;
+	    
+	    console.log(cookie3); // nombre=bran
+
+	Si por alguna razón se necesita un "punto y coma" que sea tomado en cuenta en la cookie entonces se tiene que **ESCAPAR** o **ESCAPE** el caracter.
+	
+----------------------------------------------------------------------------------
+
+### ESCAPAR CARACTERES - MÉTODO ESCAPE
+
+Los caracteres especiales que son escapeados)? se cambian por su versión o abreviación HTML.
+
+		let demo = "123;123*123/123' 123ñññ";
+		let escapar = escape(demo);
+		console.log(escapar); // 123%3B123*123/123%27%20123%F1%F1%F1
+
+### ESCAPAR CARACTERES YA ESCAPEADOS - MÉTODO UNESCAPE
+
+Este método es similar a "escape" pero a la inversa, los caracteres en abreviación HTML se cambian a los normales.
+
+		let demo = "123%3B123*123/123%27%20123%F1%F1%F1";
+		let escapar = unescape(demo);
+		console.log(escapar); // 123;123*123/123' 123ñññ
+
+
+
+----------------------------------------------------------------------------------
+
+### FUNCIÓN PARA CREAR COOKIE QUE NO EXPIRA
+
+Lo que se hizo anteriormente no es la mejor forma de crear cookies, por lo que en este ejemplo se hará una función para crearlas.
+
+	    function crearCookies(nombre, valor)  {
+	    	valor = escape(valor);
+	    	let cookieCreada = document.cookie = nombre +  "="  + valor +  ";";
+	    	console.log(cookieCreada); // piedra=Esmeralda; // ciudad=CDMX;
+	    }
+	    
+	    crearCookies("piedra", "Esmeralda");
+	    crearCookies("ciudad", "CDMX");
+
+----------------------------------------------------------------------------------
+
+### FUNCIÓN PARA CREAR COOKIE QUE EXPIRA
+
+Para definir la expiración se usa la palabra reservada "**expires"**, que va después del punto y coma, y se le asigna un valor.
+
+En este ejemplo, para definir una fecha de expiración se utiliza el constructor "new Date()".
+
+En este ejemplo la cookie vencerá en un mes. *Revisar la cookie en la configuración del navegador para corroborar la expiración.*
+
+	    function crearCookiesExpiran(nombre, valor)  {
+			let fecha = new Date();
+			fecha.setMonth(fecha.getMonth() + 1);
+			
+		    valor = escape(valor);
+		    let cookieExpira = document.cookie = nombre + "=" + valor + ";expires=" + fecha.toUTCString();
+		    console.log(cookieExpira); // usuario=Arkanon;expires=Fri, 27 Jan 2023 02:33:09 GMT // password=123;expires=Fri, 27 Jan 2023 02:33:09 GMT
+	    }
+	    
+	    crearCookiesExpiran("usuario",  "Arkanon");
+	    crearCookiesExpiran("password",  "123");
+
+
+----------------------------------------------------------------------------------
+
+### FUNCIÓN PARA BORRAR COOKIES
+
+Las cookies se eliminan cuando su fecha de expiración llega, y esa fecha la define el desarrollador.
+
+*Revisar la cookie en la configuración del navegador para corroborar que se haya eliminado.*
+
+	    function borrarCookies(nombre) {
+
+			let fecha = new Date();
+			fecha.setMonth(fecha.getMonth() - 1);
+			
+		    let cookieEliminar = document.cookie = nombre + "=" + valor + ";expires=" + fecha.toUTCString();
+		    console.log(cookieEliminar); // nombre=saludos;expires=Fri, 27 Jan 2023 02:34:34 GMT;
+	    }
+
+		    borrarCookies("nombre");
+
+			console.log("COOKIES ACTUALES EN EL NAVEGADOR 3");
+			let cookies = document.cookie;
+			console.log(cookies); // usuario=Arkanon; password=123; apellido=lopez; piedra=Esmeralda; ciudad=CDMX
+
+----------------------------------------------------------------------------------
+
+### FUNCIÓN PARA OBTENER COOKIES
+
+		    function  getCookies(nombre)  {
+			    let cookiesGuardadas = document.cookie;
+			    let cookiesArray = cookiesGuardadas.split("; ");
+			    
+			    console.log("ESTO ES cookiesArray");
+			    console.log(cookiesArray); // ['usuario=Arkanon', 'password=123', 'apellido=lopez', 'piedra=Esmeralda', 'ciudad=CDMX']
+			    
+			    for(let i =  0; i < cookiesArray.length; i++) {
+				    let parArr = cookiesArray[i].split("=");
+				    cookiesArray[i] = parArr;
+			    
+				    console.log("ESTO ES parArr");
+				    console.log(parArr); // ['password', '123'] ITERACION DE CADA ELEMENTO
+			    
+				    console.log("ESTO ES cookiesArray[i]");
+				    console.log(cookiesArray[i]); // ['password', '123'] ITERACION DE CADA ELEMENTO
+			    
+				    if(parArr[0] === nombre) {
+					    console.log("ESTO ES parArr[1]"); // Arkanon // 123 // CDMX
+					    console.log(parArr[1]);
+				    
+					    return  unescape(parArr[1]);
+				    }
+			    }
+		    
+			    console.log("Array de arrays que contienen los pares ");
+			    console.log(cookiesArray); // [['usuario', 'Arkanon'], ['password', '123'], ['apellido', 'lopez'], ['piedra', 'Esmeralda'], ['ciudad', 'CDMX']]
+			    
+			    return  undefined;
+		    }
+		    
+		    getCookies("usuario");
+		    getCookies("password");
+		    getCookies("ciudad");
+
+> Written with [StackEdit](https://stackedit.io/).
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTc3NTIzMjYwNSw3MzYzMDEyMjcsNjUzNz
+Q3NTI3LC0xNDQ2MTc5NTkyLDkzMDg1NzkxNSwtMjExNTgwODU3
+Miw4NzAyNjAyNyw2MjM2OTEwODAsLTEyMDQxOTAwMDAsMTY5Mz
+E5OTIyMywxMjk1Mjc5NTksMTcwNjk2MDU1OSwtMzEwMTYxMDU0
+LDk4MjU2MTg5LDcxNjA2OTIyNywtNjQ5MDM1MzI5LDYxNzY5MD
+k2NSwtNDgzODYwMjIzLDEzNzU5NzUwMDMsLTQ4NzYwNTI3MF19
+
+-->

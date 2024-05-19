@@ -1,0 +1,94 @@
+# MODO ESTRICTO - STRICT MODE
+
+**DEFINICIÓN DE CHAT GPT:** El modo estricto en JavaScript es un modo de ejecución opcional que proporciona un entorno de programación más seguro y estricto para JavaScript. Cuando se activa el modo estricto, ciertas características del lenguaje que pueden ser potencialmente confusas o problemáticas se desactivan o cambian para proporcionar un comportamiento más preciso y predecible.
+
+El modo estricto se activa en un script o en una función colocando la siguiente sentencia al comienzo del script o función:
+
+`use strict;`
+
+Algunos de los cambios que se producen al activar el modo estricto son:
+
+* Prohibición de usar variables sin declarar previamente.
+* Prohibición de usar nombres de propiedades reservados para el futuro.
+* Prohibición de usar el mismo nombre para una variable y una propiedad en el mismo ámbito.
+* Prohibición de usar "eval" o "arguments" como nombres de variables.
+* Mejora en la manipulación de errores, como la detección de errores que antes no eran reportados.
+
+El modo estricto es una buena práctica en JavaScript para garantizar que el código sea más seguro y estable, y se recomienda su uso para proyectos nuevos y existentes. Sin embargo, es importante tener en cuenta que puede haber código existente que dependa de las características menos estrictas de JavaScript y que pueda dejar de funcionar al activar el modo estricto. Por lo tanto, es importante probar cuidadosamente el código al activar el modo estricto.
+
+***
+
+### EJEMPLOS DE USO DEL MODO ESTRICTO
+
+Aquí hay algunos ejemplos que muestran cómo el modo estricto afecta el comportamiento de JavaScript:
+
+1.  No se pueden declarar variables sin la palabra clave `var`, `let` o `const`:
+
+		    "use strict";
+		    x = 10; // Uncaught ReferenceError: x is not defined
+
+2.  No se pueden usar nombres de propiedades reservadas para el futuro:
+
+		    "use strict";
+		    var obj = {};
+		    obj.implements = ""; // Uncaught SyntaxError: Unexpected reserved word
+
+3.  No se pueden usar el mismo nombre para una variable y una propiedad en el mismo ámbito:
+
+		    "use strict";
+		    var obj = {};
+		    var obj = 10; // Uncaught SyntaxError: Identifier 'obj' has already been declared
+
+4.  No se pueden usar "eval" o "arguments" como nombres de variables:
+
+		    "use strict";
+		    var eval = 10; // Uncaught SyntaxError: Unexpected eval or arguments identifier
+		    var arguments = 10; // Uncaught SyntaxError: Unexpected eval or arguments identifier
+
+5.  Mejora en la manipulación de errores, como la detección de errores que antes no eran reportados:
+
+		    "use strict";
+		    delete Object.prototype; // Uncaught TypeError: Cannot delete property 'prototype' of function Object() { [native code] }
+
+***
+
+### EJEMPLOS
+
+El modo estricto se puede usar dentro de funciones. Hay que tener mucho cuidado cuando se utilice o active en librerías o frameworks de terceros porque este modo puede provocar malos funcionamientos.
+
+		    function getName() {
+			    "use strict";
+		    
+			    nombre = "Brandon";
+			    return nombre; // referenceError: nombre is not defined
+		    }
+		    
+		    function getName() {
+			    "use strict";
+		    
+			    let nombre = "Brandon";
+			    return nombre; // Brandon
+		    }
+		    
+		    getName();
+
+***
+
+### NOTAS IMPORTANTES
+
+* Si el modo estricto se habilita al inicio del archivo (en la primera línea del archivo) sin encapsularlo, esto provocará que TODOS LOS ARCHIVOS JS QUE LE SIGAN TENDRÁN EL MODO ESTRICTO HABILITADO.
+
+	`"use strict";`
+
+* Para que el modo estricto solo se mantenga habilitado en algún archivo específico se tiene que encapsular.
+
+		    (function() {
+			   "use strict";
+		    })();
+
+> Written with [StackEdit](https://stackedit.io/).
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTExOTIxMzkxNiwtMTI0ODYxNzY5NywtMj
+EyMDgzMjAyOSwyMDUyODYwMzY0LDI3MjMzNjA0OCw2Njc0MjY1
+NDBdfQ==
+-->

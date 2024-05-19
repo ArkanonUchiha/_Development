@@ -1,0 +1,260 @@
+# EXPRESIONES REGULARES - REGEX
+
+*Plataforma en línea para probar RegEx:
+[RegExr: Learn, Build, & Test RegEx](https://regexr.com/)*
+
+En JS las Expresiones Regulares se pueden definir de 2 formas:
+
+1. **Explícita**: Usando el constructor existente.
+
+	    const REGEX_1 = RegExp("Brandon");
+
+2. **Literal**: Definiéndola en el momento, entre barras inclinadas.
+
+	    const REGEX_1 = /Brandon/;
+    
+**NOTA:** Ambas formas significan lo mismo. Esto buscará la palabra "Brandon" en el texto dado.
+
+----------------------------------------------------------------------------------
+
+###  Método ".match()"
+
+Los **STRING** tienen el método "*match()*" para buscar una EXPRESION REGULAR en su cadena. ***Recalcar que "*match()*" solo existe para STRINGS no para otro tipo de datos.***
+
+**NOTA:** Si la expresión se encuentra en la cadena entonces DEVOLVERÁ UN ARREGLO, sino devolverá un NULL. Al devolver un arreglo también posee los métodos para arreglos. También Es CASESENSITIVE. Por lo que "A" y "a" son diferentes, a menos que se haga una REGEX más inclusiva.
+
+**NOTA:** La búsqueda se detiene en la primera coincidencia.
+
+**NOTA:** Para obtener solamente la coincidencia se toma el primer índice del arreglo:
+
+	    console.log(TEXTO_1.match(REGEX_1)[0]);
+
+----------------------------------------------------------------------------------
+### Controladores de RegEx
+Estas sirven para tener un mejor control de las expresiones o coincidencias a buscar. Existen 3, y son las siguientes:
+* i : Para que las búsquedas sean insensibles a mayúsculas y minúsculas, o sea, acepta ambas.
+* g : Para todas las apariciones o coincidencias.
+* m : Que las búsquedas o coincidencias sea por multilínea, o sea, después de un "enter".
+
+Y estos controladores se agregan al final de la RegEx.
+
+	    let REGEX = / /i;
+	    let REGEX = / /g;
+	    let REGEX = / /m;
+
+----------------------------------------------------------------------------------
+
+	    const REGEX_1 = RegExp("Brandon");
+	    const REGEX_2 = /Brandon/;
+	    const TEXTO_1 = "Edwin Brandon Lopez Martinez";
+
+**EXPRESION REGULAR USANDO CONSTRUCTOR**
+
+	    console.log(TEXTO_1.match(REGEX_1)); ['Brandon', index: 6, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+
+**EXPRESION REGULAR USANDO LITERAL GUARDADA EN CONSTANTE**
+
+	    console.log(TEXTO_1.match(REGEX_2)); ['Brandon', index: 6, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+
+**EXPRESION REGULAR USANDO LITERAL**
+
+	    console.log(TEXTO_1.match(/Brandon/)); ['Brandon', index: 6, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+
+**CUANDO EL VALOR NO SE ENCUENTRA EN LA CADENA**
+
+	    console.log(TEXTO_1.match(/SALUDOS/)); NULL
+
+----------------------------------------------------------------------------------
+
+**EJEMPLOS:**
+
+	    const REGEX_3 = /[0-9]/;
+	    const TEXTO_1 = "Edwin Brandon Lopez Martinez";
+	    const NUMERO_STRING =  "012345";
+
+**BUSCAR EN LA PRIMERA PARTE O PRIMERA UBICACION DE LA CADENA**
+
+	    console.log(TEXTO_1.match(/^Edwin/)); ['Edwin', index: 0, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+
+**BUSCAR EN LA PRIMERA PARTE O PRIMERA UBICACION DE LA CADENA**
+
+	    console.log(TEXTO_1.match(/^Brandon/)); NULL
+
+**BUSCAR EN LA ULTIMA PARTE O ULTIMA UBICACION DE LA CADENA**
+
+	    console.log(TEXTO_1.match/Edwin$/)); NULL
+
+**BUSCAR EN LA ULTIMA PARTE O ULTIMA UBICACION DE LA CADENA**
+
+	    console.log(TEXTO_1.match(/Martinez$/)); ['Martinez', index: 20, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+
+**BUSCAR EN LA ULTIMA PARTE O ULTIMA UBICACION DE LA CADENA**
+
+	    console.log(TEXTO_1.match(/z$/)); ['z', index: 27, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+
+**BUSCAR N Y CUALQUIER CARACTER AL FINAL DE LA CADENA, DEPENDE DE LA CANTIDAD DE PUNTOS QUE SE PONGAN**
+
+	    console.log(TEXTO_1.match(/.$/)); ['z', index: 27, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+	    console.log(TEXTO_1.match(/..$/)); ['ez', index: 26, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+	    console.log(TEXTO_1.match(/...$/)); ['nez', index: 25, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+	    console.log(TEXTO_1.match(/....$/)); ['inez', index: 24, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+	    console.log(TEXTO_1.match(/e.$/)); ['ez', index: 26, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+
+**BUSCAR N Y CUALQUIER CARACTER AL INICIO DE LA CADENA, DEPENDE DE LA CANTIDAD DE PUNTOS QUE SE PONGAN**
+
+	    console.log(TEXTO_1.match(/^./)); ['E', index: 0, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+	    console.log(TEXTO_1.match(/^../)); ['Ed', index: 0, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+	    console.log(TEXTO_1.match(/^.../)); ['Edw', index: 0, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+	    console.log(TEXTO_1.match(/^..../)); ['Edwi', index: 0, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+	    console.log(TEXTO_1.match(/^..w/)); ['Edw', index: 0, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+
+----------------------------------------------------------------------------------
+
+**EJEMPLOS:**
+
+	    const REGEX_3 = /[0-9]/;
+	    const TEXTO_1 = "Edwin Brandon Lopez Martinez";
+	    const NUMERO_STRING =  "012345";
+
+**DEFINIR RANGOS - NUMEROS STRING**
+
+	    console.log(NUMERO_STRING.match(REGEX_3)); ['0', index: 0, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[1-5]/)); ['1', index: 1, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[0-5]/)); ['0', index: 0, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[0-4]/)); ['0', index: 0, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[3]/)); ['3', index: 3, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[5]/)); ['5', index: 5, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[6]/)); NULL
+	    console.log(NUMERO_STRING.match(/[234]/)); ['2', index: 2, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[12345]/)); ['1', index: 1, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[123456]/)); ['1', index: 1, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[54321]/)); ['1', index: 1, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[67891]/)); ['1', index: 1, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[65891]/)); ['1', index: 1, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[16789]/)); ['1', index: 1, input: '012345', groups: undefined]
+	    console.log(NUMERO_STRING.match(/[16745]/)); ['1', index: 1, input: '012345', groups: undefined]
+	    console.log(TEXTO_1.match(/[16745]/)); NULL
+
+----------------------------------------------------------------------------------
+
+**EJEMPLOS:**
+
+	    const REGEX_4 = /[a-z]/;
+	    const REGEX_5 = /[A-Z]/;
+	    const REGEX_6 = /[a-zA-Z]/;
+		const REGEX_7 = /^H[a-zA-Z]/;
+	    const TEXTO_1 = "Edwin Brandon Lopez Martinez";
+	    const TEXTO_2 = "Halo Combat Evolved";
+	    const TEXTO_3 =  "Halo 2";
+
+**DEFINIR RANGOS - CARACTERES EN UNA CADENA DE TEXTO - SOLO MINUSCULAS**
+
+	    console.log(TEXTO_1.match(REGEX_4)); ['d', index: 1, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+
+**DEFINIR RANGOS - CARACTERES EN UNA CADENA DE TEXTO - SOLO MAYUSCULAS**
+
+	    console.log(TEXTO_1.match(REGEX_5)); ['E', index: 0, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+
+**DEFINIR RANGOS - CARACTERES EN UNA CADENA DE TEXTO - MINUSCULAS Y MAYUSCULAS**
+
+	    console.log(TEXTO_1.match(REGEX_6)); ['E', index: 0, input: 'Edwin Brandon Lopez Martinez', groups: undefined]
+
+**QUE INICIE CON UN CARACTER ESPECIFICO Y LUEGO CONTINUE CON EL RANGO**
+
+	    console.log(TEXTO_2.match(REGEX_7)); ['Ha', index: 0, input: 'Halo Combat Evolved', groups: undefined]
+
+**BUSCAR AL FINAL CUALQUIER VOCAL SEGUIDO DE CUALQUIER CARACTER**
+
+	    console.log(TEXTO_2.match(/[aeiou].$/)); ['ed', index: 17, input: 'Halo Combat Evolved', groups: undefined]
+	    console.log(TEXTO_2.match(/[AEIOU].$/)); NULL
+
+**BUSCAR CUALQUIER VOCAL SEGUIDO DE CUALQUIER CARACTER**
+
+	    console.log(TEXTO_2.match(/[aeiou]./)); ['al', index: 1, input: 'Halo Combat Evolved', groups: undefined]
+
+**BUSCAR ESPACIOS O SEPARACIONES ENTRE CARACTERES - INCLUYE TABULACIONES, ESPACIOS Y OTROS SEPARADORES**
+
+	    console.log(TEXTO_2.match(/\s/)); [' ', index: 4, input: 'Halo Combat Evolved', groups: undefined]
+
+**SHORTHAND O ABREVIATURA PARA BUSCAR CUALQUIER PALABRA O CARACTER, INCLUSO NUMEROS STRING (ES LO MISMO A [a-zA-Z0-9])**
+
+	    console.log(TEXTO_2.match(/\w/)); ['H', index: 0, input: 'Halo Combat Evolved', groups: undefined]
+
+**SHORTHAND O ABREVIATURA PARA BUSCAR CUALQUIER NUMERO STRING (ES LO MISMO A [0-9])**
+
+	    console.log(TEXTO_3.match(/\d/)); ['2', index: 5, input: 'Halo 2', groups: undefined]
+
+----------------------------------------------------------------------------------
+
+**EJEMPLOS:**
+
+	    const REGEX_4 = /[a-z]/;
+	    const REGEX_5 = /[A-Z]/;
+	    const REGEX_6 = /[a-zA-Z]/;
+		const REGEX_7 = /^H[a-zA-Z]/;
+	    const TEXTO_1 = "Edwin Brandon Lopez Martinez";
+	    const TEXTO_2 = "Halo Combat Evolved";
+	    const TEXTO_3 =  "Halo 2";
+	    const TEXTO_4 =  "AaBbCcDd";
+	    const TEXTO_5 =  "Edwin Brandon López Martínez";
+	    const TEXTO_6 =  "a ae aei aeio aeiou aa ee ii oo uu eee Haaaloo Coombaaaaaaaaat Evoooolveeeeeeed";
+
+**CONTROLADOR DE REGEX - i - ACEPTA MAYUSCULAS Y MINUSCULAS**
+
+	    console.log(TEXTO_4.match(/[abcd]/i)); ['A', index: 0, input: 'AaBbCcDd', groups: undefined]
+
+**CONTROLADOR DE REGEX - g - ACEPTA TODAS LAS COINCIDENCIAS**
+
+	    console.log(TEXTO_4.match(/[abcd]/g)); (4) ['a', 'b', 'c', 'd']
+
+**CONTROLADOR DE REGEX - COMBINACION DE ig**
+
+	    console.log(TEXTO_4.match(/[abcd]/ig)); (8) ['A', 'a', 'B', 'b', 'C', 'c', 'D', 'd']
+
+**CONTROLADOR DE REGEX - NO HICE EJEMPLO DE m**
+
+**OPERADOR ALTERNATIVO PIPELINE O LINEA VERTICAL |**
+
+	    console.log(TEXTO_5.match(/[aeiou]/ig)); (7) ['E', 'i', 'a', 'o', 'e', 'a', 'e']
+	    console.log(TEXTO_5.match(/[aeiou]|[áéíóú]/ig)); (9) ['E', 'i', 'a', 'o', 'ó', 'e', 'a', 'í', 'e']
+
+**OPERADORES DE REPETICION +**
+
+	    console.log(TEXTO_6.match(/e+/g)); (6) ['e', 'e', 'e', 'e', 'ee', 'eee']
+	    console.log(TEXTO_6.match(/u+/g)); (2) ['u', 'uu']
+
+**OTROS OPERADORES DE REPETICION - NO PUSE EJEMPLOS - * ?**
+
+**OPERADOR DE REPETICION { }**
+
+	    console.log(TEXTO_6.match(/a{2,}/)); ['aa', index: 20, input: 'a ae aei aeio aeiou aa ee ii oo uu eee Haaaloo Coombaaaaaaaaat Evoooolveeeeeeed', groups: undefined]
+
+**OPERADOR DE REPETICION - { } - PRIMER PARAMETRO DE INICIO Y SEGUNDO DE LIMITE**
+
+	    console.log(TEXTO_6.match(/a{2,}/g)); (3) ['aa', 'aaa', 'aaaaaaaaa']
+	    console.log(TEXTO_6.match(/a{2,5}/g)); (4) ['aa', 'aaa', 'aaaaa', 'aaaa']
+
+**EJEMPLO DE UNA REGEX - PARA ENCONTRAR UN DIPTONGO**
+
+	    console.log(("Aeropuerto").match(/[aeiou]{2,2}/ig)); (2) ['Ae', 'ue']
+
+**EJEMPLO DE UNA REGEX - PARA OBTENER GRUPOS DE DOS LETRAS POR PALABRA**
+
+	    console.log(("Aeropuerto").match(/../ig)); (5) ['Ae', 'ro', 'pu', 'er', 'to']
+	    console.log(("Aeropuerto").match(/\w{2,2}/ig)); (5) ['Ae', 'ro', 'pu', 'er', 'to']
+
+**EJEMPLO DE UNA REGEX  - PARA OBTENER LOS NUMEROS EN PARES DENTRO DE UNA CADENA**
+
+	    console.log(("La Respuesta de la suma es: 45 + 60 = 105").match(/\d{1,}|respuesta/ig)); (4) ['Respuesta', '45', '60', '105']
+	    console.log(("La Respuesta de la suma es: 45 + 60 = 105").match(/[0-9]{1,}|respuesta/ig)); (4) ['Respuesta', '45', '60', '105']
+	    console.log(("La Respuesta de la suma es: 45 + 60 = 105").match(/[0-9]{2,}|respuesta/ig)); (4) ['Respuesta', '45', '60', '105']
+	    console.log(("La Respuesta de la suma es: 5 + 6 = 11").match(/[0-9]{2,}|respuesta/ig)); (2) ['Respuesta', '11']
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTk0MTY2MTUyLC0xNzEyODAyMDA3LC04Mj
+c1MzQwNjMsLTEyNTE2ODAwNCwtMTEzNDQ5NTA3MSwxNzI5MDc4
+OTU0LC0xMDM3NTYxNDk0LDc1NjU5ODY3MiwtNDI3OTAwNTYxLD
+E4MTIzNjU5MjcsNzc5NjcyODIyLDIwOTg2MzMxODcsMTk2NjE2
+NDMzOCw4MzA0OTc3NTcsLTEyNDg2NzEwMjQsOTI5MDkxODg2LD
+g0NjI4OTE3MCwxMzEzMzI4OTU0LC0xNDg4NTc0NzUzLC0xNDk1
+OTg3MDY1XX0=
+-->

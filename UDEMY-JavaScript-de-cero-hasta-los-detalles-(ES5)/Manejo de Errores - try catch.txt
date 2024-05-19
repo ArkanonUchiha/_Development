@@ -1,0 +1,158 @@
+# MANEJO DE ERRORES - TRY CATCH
+
+El manejador de errores consta de 3 bloques o secciones:
+
+1. **Bloque "try":** Es la sección en donde se ejecutarán las tareas que necesitemos.
+
+2. **Bloque "catch":** Es la sección, opcional, en donde se ejecutarán ciertas acciones si se encuentra alguna falla en la sección try. Si en dado caso decide no colocarse un "catch" entonces el bloque "finally" es obligatorio. En el caso de no poner un catch o un finally se producirá un error de sintaxis. Esta sección "catch" solo se ejecutará si hay algún error en el bloque try.
+
+3. **Bloque "finally":** Es la sección que siempre se ejecutará, independientemente de si hay errores o no.
+
+### MANEJADOR CON LAS 3 SECCIONES
+
+	    try {
+		    let a = 100;
+		    console.log(a); 100
+	    } catch(error) {
+		    console.log("Se ha producido un error");
+	    } finally {
+		    console.log("Esto es finally"); Esto es finally
+	    }
+
+### MANEJADOR CON 2 SECCIONES
+
+	    try {
+		    let a = 100;
+		    console.log(a); 100
+	    } finally {
+		    console.log("Esto es finally"); Esto es finally
+	    }
+
+### MANEJADOR CON 1 SECCION
+
+**NOTA:** Este bloque no se ejecutará porque es un error de sintaxis en donde hace falta un catch o un finally:
+	*Uncaught SyntaxError: Missing catch or finally after try*
+
+	    try {
+		    let a = 100;
+		    console.log(a); 100
+	    }
+
+----------------------------------------------------------------------------------
+
+Provocar un error intencionalmente para poder entrar al bloque "catch" puede ser un poco complicado porque normalmente surgen errores de sintaxis o errores de tipo que no ameritan entrar al catch. Para lograr entrar al catch de forma forzada se puede utilizar "**throw**", que significa "lanzar" o "tirar".
+
+### PRIMER EJEMPLO - USANDO THROW LITERAL
+
+**NOTA:** Lo que haya después de una línea throw  no se ejecutará. En modo estricto (strict mode) arrojará error de código inaccesible.
+
+	    try  {
+	    	let a = 100;
+	    	console.log(a); // 100
+	    	if(a ===  101) {
+	    		throw  "El valor es 100";
+	    	}  else  {
+	    		throw  "El valor es diferente de 100"; // Uncaught Error tipo 1
+	    		console.log("Soy una linea inaccesible");
+	    	}
+	    }  catch(error) {
+	    	if(error ===  "El valor es diferente de 100") {
+	    		throw  "Error tipo 1"; // Uncaught Error tipo 1
+	    	}
+	    }  finally  {
+	    	console.log("Esto es finally"); // Esto es finally
+	    }
+
+### EJEMPLO 2 - USANDO CONSTRUCTOR ERROR
+
+	    try  {
+	    	let a =  100;
+	    	if(a ===  101) {
+	    		console.log("EL VALOR ES 100");
+	    	}  else  {
+	    		throw  new  Error("Error tipo 1"); // Error tipo 1
+	    	}
+	    }  catch(e) {
+	    	console.log(e); //
+
+	    	Error: Error tipo 1
+    at eval (main.js?56d7:1256:1)
+    at ./src/main.js (app.js:1067:1)
+    at __webpack_require__ (app.js:849:30)
+    at fn (app.js:151:20)
+    at 1 (app.js:1127:18)
+    at __webpack_require__ (app.js:849:30)
+    at checkDeferredModules (app.js:46:23)
+    at app.js:925:18
+    at app.js:928:10
+
+	    	console.log(e.message); // Error tipo 1
+	    }  finally  {
+	    	console.log("BLOQUE FINALLY"); // BLOQUE FINALLY
+	    }
+
+### EJEMPLO 3 - PERSONALIZANDO EL THROW
+
+Con "throw" se puede arrojar cualquier tipo de dato: funciones, objetos, arreglos, tipos primitivos (strings, números, etc), variables, etc.
+
+En este ejemplo se envía un **objeto anónimo**:
+
+	    try  {
+	    	console.log("BLOQUE TRY"); // BLOQUE TRY
+	    	throw  {
+	    		nameError:  "Error de inserción",
+	    		messageError:  "Soy un mensaje de error",
+	    		codeError:  1
+	    	}
+	    }  catch(e) {
+	    	console.log("BLOQUE CATCH"); // BLOQUE CATCH
+	    	console.log(e); // {nameError: 'Error de inserción', messageError: 'Soy un mensaje de error', codeError: 1}
+	    	console.log(e.nameError); // Error de inserción
+	    	console.log(e.messageError); // Soy un mensaje de error
+	    	console.log(e.codeError); // 1
+	    }  finally  {
+	    	console.log("BLOQUE FINALLY"); // BLOQUE FINALLY
+	    }
+
+En este otro ejemplo se envía una **función anónima**:
+
+	    try  {
+	    	console.log("BLOQUE TRY"); // BLOQUE TRY
+	    	throw  function() {
+		    	console.log("SOY LA FUNCIÓN ANÓNIMA DEL THROW");
+	    	};
+	    }  catch(e) {
+	    	console.log("BLOQUE CATCH"); // BLOQUE CATCH
+	    	e(); // SOY LA FUNCION ANONIMA DEL THROW
+	    }  finally  {
+	    	console.log("BLOQUE FINALLY"); // BLOQUE FINALLY
+	    }
+
+### EJEMPLO 3 - PERSONALIZANDO EL THROW - CREANDO UN CATALOGO DE ERRORES
+
+	    try  {
+	    	console.log("BLOQUE TRY");
+	    	throw  1;
+	    }  catch(e) {
+	    	console.log("BLOQUE CATCH");
+	    	registroErrores(e);
+	    }  finally  {
+	    	console.log("BLOQUE FINALLY");
+	    }
+	    
+	    function  registroErrores(e)  {
+	    	let fecha =  new  Date();
+	    	console.log("SE REGISTRO UN ERROR DE TIPO: ",e,  "a las ",fecha);
+	    }
+
+**NOTA:** Se recomienda usar el constructor new Error si se contempla algún error de JS  y no de lógica de desarrollo.
+
+**RECORDATORIO IMPORTANTE:** Lo que haya después de una línea throw  no se ejecutará. En modo estricto (strict mode) arrojará error de código inaccesible. Es importante analizar la colocación de los throw.
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTE5ODgzNjY5MTksLTE3NDQyNTk2MDksNj
+A3MjczOTIxLDE5MjIyMjcwMzMsLTU1NDQzMDgxMSwtMjAwMjQw
+NDgyNCw4ODQzNjgxNzksLTEyODAzNjM4NDgsMTI1OTc5ODA3NC
+wxMzU5MDA1OTE2LC0zOTE5NDU2NywxMDM2MjYyMDkyLC02ODY3
+NjQxOCwxMzQ5Mzk0NTA4LDE5Mzc4NDg1LC0yNTM5MDQwNDUsMT
+czNDExMjYwNywtOTUwNzY0OTUxXX0=
+-->

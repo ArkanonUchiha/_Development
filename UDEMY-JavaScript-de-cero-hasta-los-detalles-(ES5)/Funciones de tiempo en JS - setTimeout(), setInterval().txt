@@ -1,0 +1,173 @@
+# FUNCIONES DE TIEMPO EN JS: setTimeout() Y setInterval()
+
+Javascript posee 2 funciones para manejar tiempo. Para ambos casos el tiempo se maneja en milisegundos donde 1000 equivale a 1 segundo y 100 a 1 milisegundo:
+
+1. **setTimeOut()**: Es usada cuando queremos ejecutar código después de ciertos segundos. Tiene que pasar primero el tiempo definido para que después se ejecute el código definido.
+
+2. **setInterval()**: Es usada cuando queremos ejecutar código "n" cantidad de veces (repeticiones) durante "n" cantidad de tiempo definido.
+
+***
+
+**SINTAXIS:**
+
+		    setTimeout(FUNCION, TIEMPO);
+		    
+		    setInterval(FUNCION, TIEMPO);
+
+* El primer parámetro es una función y puede ser una función de cualquier tipo: *Declarada, Expresada, Anónima o de flecha*.
+
+* El segundo parámetro es de tipo número que indica el tiempo que se tiene que esperar para ejecutar el código.
+
+***
+
+### USANDO setTimeout()
+
+El código se ejecuta solo 1 vez después del tiempo definido.
+
+		    // FUNCIÓN DECLARADA
+		    function probandoTimeout()  {
+			    console.log("PASÓ UN SEGUNDO - FUNCIÓN DECLARADA");
+		    }
+		    
+		    setTimeout(probandoTimeout(), 1000); // PASÓ UN SEGUNDO - FUNCIÓN DECLARADA
+		    
+		      
+		      
+		    // FUNCIÓN EXPRESADA
+		    const PROBANDOTIMEOUT = function() {
+			    console.log("PASÓ UN SEGUNDO - FUNCIÓN EXPRESADA");
+		    };
+		    
+		    setTimeout(PROBANDOTIMEOUT(), 1000); // PASÓ UN SEGUNDO - FUNCIÓN EXPRESADA
+		    
+		      
+		      
+		    // FUNCIÓN ANÓNIMA
+		    setTimeout(function() {
+			    console.log("PASÓ UN SEGUNDO - FUNCION ANONIMA"); // PASÓ UN SEGUNDO - FUNCION ANONIMA
+		    }, 1000);
+		    
+		      
+		      
+		    // FUNCIÓN DE FLECHA
+		    setTimeout(() => {
+			    console.log("PASÓ UN SEGUNDO - FUNCIÓN DE FLECHA"); // PASÓ UN SEGUNDO - FUNCIÓN DE FLECHA
+		    }, 1000);
+
+***
+
+### USANDO setInterval()
+
+El código se ejecuta "n" cantidad de veces por "n" cantidad de tiempo, o sea, se ejecuta varias veces durante el tiempo definido.
+
+En este ejemplo, el mismo código se ejecuta cada 5 segundos y no se ha definido un límite, por lo que el código se ejecutará hasta el infinito.
+
+  
+
+			let segundos =  0;
+
+			setInterval(function()  {
+				segundos++;
+				
+				console.log("SEGUNDOS: ", segundos); // SEGUNDOS: n++ (EN DONDE n ES UN NUMERO QUE VA INCREMENTANDO DE 1 EN 1 CADA 5 SEGUNDOS)
+			},  5000);
+
+El mismo ejemplo anterior pero con la modificación de agregarle un límite  para que deje de ejecutarse. Para delimitar la ejecución se usa la función  `clearInterval()`:
+
+			let segundos =  0;
+			
+		    let intervalo =  setInterval(function()  {
+			    segundos++;
+			    
+			    console.log("SEGUNDOS: ", segundos); // SEGUNDOS: n++ (EN DONDE n ES UN NUMERO QUE VA INCREMENTANDO DE 1 EN 1 CADA 5 SEGUNDOS Y CUANDO LLEGA HASTA 5 ENTONCES LA EJECUCIÓN TERMINA)
+			    
+			    if(segundos ===  5) {
+				    clearInterval(intervalo);
+			    }
+		    },  5000);
+
+***
+
+### EL VALOR DE "this" AL USAR LAS FUNCIONES DE TIEMPO
+
+En un nuevo ejemplo se muestra el valor que adquiere `this` dentro de una función de tiempo.
+
+		    const INDIVIDUO =  {
+			    nombre:  "Jhon",
+			    numero:  117,
+			    imprimir:  function()  {
+				    setTimeout(function()  {
+					    console.log(this.nombre,  this.numero); // undefined undefined
+				    },  1000);
+			    }
+		    };
+
+			INDIVIDUO.imprimir(); // undefined undefined
+
+Abajo es el mismo ejemplo pero con las impresiones de los valores de `this` en los diferentes scopes de este pequeño objeto.
+
+		    const INDIVIDUO = {
+		      nombre: "Jhon",
+		      numero: 117,
+		      imprimir: function() {
+		        
+		        console.log(this); // EL VALOR DE ESTE this ES EL PROPIO OBJETO EN DONDE SE ENCUENTRA DENTRO
+		        
+		        setTimeout(function() {
+		          
+		          console.log(this); // EL VALOR DE ESTE this ES EL OBJETO GLOBAL, NO EL OBJETO DONDE SE ENCUENTRA
+		          
+		          console.log(this.nombre, this.numero); // undefined undefined
+		        }, 1000);
+		      }
+		    };
+		    
+		    INDIVIDUO.imprimir();
+
+Una ligera modificación al mismo ejemplo para ver el valor de `this`.
+
+Fuera del objeto, se declaran unas variables con la palabra reservada `var`, lo que hace que se agreguen al scope del objeto global y sean reconocidas dentro del scope del `setTimeout`. Esto es una mala práctica.
+
+		    var nombre = "Samuel";
+		    var numero = 104;
+		    
+		    const INDIVIDUO = {
+			    nombre: "Jhon",
+			    numero: 117,
+			    imprimir: function() {
+		    
+				    setTimeout(function() {
+					     console.log(this.nombre, this.numero); // 'Samuel' 104
+				    }, 1000);
+			    }
+		    };
+
+			INDIVIDUO.imprimir(); // 'Samuel' 104
+
+Para establecer el valor correcto de `this` se tiene que hacer por medio de referencia. En este ejemplo se guarda el valor de `this` en la variable `self`. El nombre de esta variable suele usarse a menudo entre desarrolladores, casi como convención.
+
+		    const INDIVIDUO = {
+			    nombre: "Jhon",
+			    numero: 117,
+			    imprimir: function() {
+		    
+				    let self = this;
+				    console.log(self); // {nombre: 'Jhon', numero: 117, imprimir: ƒ}
+				    
+				    setTimeout(function() {
+					    console.log(self.nombre, self.numero); // Jhon 117
+				    }, 1000);
+			    }
+		    };
+		    
+		    INDIVIDUO.imprimir();
+
+
+
+> Written with [StackEdit](https://stackedit.io/).
+<!--stackedit_data:
+eyJoaXN0b3J5IjpbLTk3ODQyNTY3NiwtMTQwMDk5NTg5LDQ5Mz
+UxMTA1MiwtNDcyMjI1MTAzLDMxMDgwMDMwMiwtMTE3MTAxMjIx
+OSwzMDUzMTAzMDUsLTE0OTk0NjE2MDYsLTE2NzcwNzk3OTIsLT
+EwNDU1Njg4ODYsMjAwOTY2MTUwOSw3MzA5OTgxMTZdfQ==
+-->

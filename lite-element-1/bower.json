@@ -1,0 +1,20 @@
+{
+  "name": "liteelement_1",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Edwin Brandon Lopez Martinez <k9999-f@hotmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "google-map": "GoogleWebComponents/google-map#^2.0.5"
+  }
+}

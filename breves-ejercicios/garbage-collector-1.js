@@ -1,0 +1,43 @@
+// EJEMPLO SENCILLO DE GARBAGE COLECTOR - ALGORITMO CONTEO DE REFERENCIAS
+// CUANDO UN OBJETO YA NO ES NECESITADO
+// https://developer.mozilla.org/es/docs/Web/JavaScript/Memory_management
+
+let OBJ = {
+  a: {
+    b: 2,
+  },
+};
+
+let OBJ2 = OBJ;
+console.log(OBJ2);
+
+OBJ = 1;
+console.log(OBJ);
+
+console.log(OBJ2);
+
+let OBJ3 = OBJ2.a;
+console.log(OBJ3);
+
+OBJ2 = "RE ASIGNACION A STRING";
+
+console.log(OBJ);
+console.log(OBJ2);
+console.log(OBJ3);
+
+// YA NO HAY REFERENCIA AL OBJETO ORIGINAL, SOLO UNA A LA PROPIEDAD 'a', PERO AUN NO PUEDE SER RECOLECTADO 'OBJ'
+
+OBJ3 = null;
+
+console.log(OBJ);
+console.log(OBJ2);
+console.log(OBJ3);
+
+// AHORA SI, YA NO HAY REFERENCIA AL OBJETO ORIGINAL, PUEDE SER RECOLECTADO 'OBJ'
+
+
+
+
+// EXISTE OTRO ALGORITMO LLAMADO 'MARK AND SWEEP - MARCADO Y BARRIDO'
+// CUANDO UN OBJETO ES INALCANZABLE
+// PENDIENTE POR ESTUDIAR

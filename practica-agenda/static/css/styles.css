@@ -1,0 +1,56 @@
+body {
+  overflow: hidden;
+}
+
+.main {
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.container {
+  max-width: 100%;
+}
+
+.bar--footer {
+  background-color: #F5F5F5;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+}
+
+.block-overflow {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.block-overflow--address,
+.block-overflow--list {
+  height: 45vh;
+}
+
+
+/* .block-overflow--phone {
+  height: 40vh;
+} */
+
+[for="disabledTextInput"] {
+  background-color: #e9ecef;
+}
+
+.disabledTextInput {
+  background-color: transparent !important;
+}
+
+.block-disabled {
+  border: 1px solid #ced4da !important;
+  border-radius: .25rem !important;
+}
+
+.block-contact:first-child {
+  padding-top: 0 !important;
+}
+
+.block-contact:last-child {
+  padding-bottom: 0 !important;
+  border-bottom: none !important;
+}

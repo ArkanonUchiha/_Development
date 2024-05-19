@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <div id="app"></div>
+
+    <h1 id="titulo" oncontextmenu="return false">SECCION 6 - clase 51, 52: EVENTOS - EVENTS</h1>
+    
+    <button id="eventoClick">EVENTO CLICK</button>
+    <button id="eventoDobleClick">EVENTO DOBLE CLICK</button>
+    <input type="text" id="eventoFocus">
+    <input type="text" id="eventoBlur">
+    <input type="text" id="eventoMouseEnter">
+    <input type="text" id="eventoMouseOut">
+
+    <script>
+      document.onmouseup = function(event) {
+        let textoSeleccionado = window.getSelection().toString();
+
+        console.log(textoSeleccionado);
+      };
+
+
+      const objEventoClick = document.getElementById("eventoClick");
+      objEventoClick.addEventListener("click", eventoClick);
+      function eventoClick(event) {
+        console.log("SOY UN EVENTO DE CLICK");
+        console.log(event);
+      }
+
+
+      const objEventoDobleClick = document.getElementById("eventoDobleClick");
+      objEventoDobleClick.addEventListener("dblclick", eventoDobleClick);
+      function eventoDobleClick(event) {
+        console.log("SOY UN EVENTO DE DOBLE CLICK");
+        console.log(event);
+      }
+
+
+      const objEventoFocus = document.getElementById("eventoFocus");
+      objEventoFocus.addEventListener("focus", eventoFocus);
+      function eventoFocus(event) {
+        console.log("SOY UN EVENTO DE FOCUS");
+        console.log(event);
+      }
+
+
+      const objEventoBlur = document.getElementById("eventoBlur");
+      objEventoBlur.addEventListener("blur", eventoBlur);
+      function eventoBlur(event) {
+        console.log("SOY UN EVENTO DE BLUR");
+        console.log(event);
+      }
+
+
+      const objEventoMouseEnter = document.getElementById("eventoMouseEnter");
+      objEventoMouseEnter.addEventListener("mouseenter", eventoMouseEnter);
+      function eventoMouseEnter(event) {
+        console.log("SOY UN EVENTO DE MOUSE ENTER");
+        console.log(event);
+      }
+
+
+      const objEventoMouseOut = document.getElementById("eventoMouseOut");
+      objEventoMouseOut.addEventListener("mouseout", eventoMouseOut);
+      function eventoMouseOut(event) {
+        console.log("SOY UN EVENTO DE MOUSE OUT");
+        console.log(event);
+      }
+    </script>
+  </body>
+</html>

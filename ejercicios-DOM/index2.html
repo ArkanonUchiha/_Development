@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    :root {
+      --backgroundColorBody: #f2f2f2;
+      --backgroundColorButton: #1b6aac;
+      --borderColorButton: #076aa5;
+
+      --varTest1: MediumSeaGreen;
+      --varTest2: salmon;
+      --varTest3: crimson;
+    }
+
+    body {
+      height: 100vh;
+      background-color: var(--backgroundColorBody);
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      transition: all .3s ease-out;
+    }
+
+    .button {
+      border: 1px solid var(--borderColorButton);
+      background-color: var(--backgroundColorButton);
+      width: 20px;
+      height: 20px;
+      padding: 1rem;
+      border-radius: 50%;
+      display: flex;
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin-right: 1rem;
+      margin-top: 1rem;
+      transition: all .3s ease-out;
+    }
+
+    .title {
+      margin: 0;
+      padding: 1rem;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--varTest3);
+    }
+
+    [dark] {
+      --backgroundColorBody: #242526;
+      --backgroundColorButton: #18191A;
+      --borderColorButton: #ffffff1a;
+    }
+  </style>
+  <title>EJERCICIOS DOM - SEGUNDA PARTE</title>
+</head>
+<body>
+  <div id="button" class="button"></div>
+  
+  <h1 id="title" class="title">Texto de prueba</h1>
+
+  <script src='index2.js'></script>
+</body>
+</html>

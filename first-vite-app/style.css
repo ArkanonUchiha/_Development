@@ -1,0 +1,28 @@
+.title {
+  text-align: center;
+  background-color: #1e1e1e;
+  color: whitesmoke;
+  padding: 1rem;
+  font-size: 24px;;
+}
+
+.cards {
+  width: 150px;
+  position: relative;
+  left: 100px;
+  margin-left: -75px;
+}
+
+#iaCardsContainer, #playerCardsContainer {
+  height: 240px;
+}
+
+#askCard[disabled],
+#stopMatch[disabled] {
+  pointer-events: none;
+}
+
+small:empty,
+.cards-container:empty {
+  display: none;
+}
