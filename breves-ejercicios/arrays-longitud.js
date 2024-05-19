@@ -7,8 +7,7 @@ const DAYS_ARR = [
   'VIERNES',
   'SABADO'
 ];
-const [, , , , , E] = DAYS_ARR;
+const [, , , , , , E] = DAYS_ARR;
 console.log(E);
 
-
-DAYS_ARR.length ? 'CONTENIDO' : 'VACIO';
+console.log(DAYS_ARR.length ? 'CONTENIDO' : 'VACIO');
