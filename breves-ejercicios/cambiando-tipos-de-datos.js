@@ -1,8 +1,8 @@
-Array.isArray([1]);
-Array.isArray(1);
+console.log(Array.isArray([1]));
+console.log(Array.isArray(1));
 
-Array.isArray([1]) ? 'SOY UN ARREGLO' : 'SOY OTRA COSA';
-Array.isArray(1) ? 'SOY UN ARREGLO' : 'SOY OTRA COSA';
+console.log(Array.isArray([1]) ? 'SOY UN ARREGLO' : 'SOY OTRA COSA');
+console.log(Array.isArray(1) ? 'SOY UN ARREGLO' : 'SOY OTRA COSA');
 
 
 const nombre = parseInt('-1');
