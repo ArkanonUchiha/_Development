@@ -24,4 +24,5 @@ export const init = (numbPlayers = 2) => {
 
   console.clear();
   console.log('app.playersPoints - init', app.playersPoints);
+  console.log('ARCHIVO EDITADO Y GUARDADO DESDE CHROME DEVTOOLS');
 };

@@ -2,7 +2,7 @@ import { app } from '../utils/imports';
 
 const createCardDOM = (card, turnPlayer) => {
   const cardElement = document.createElement('img');
-  cardElement.src = `../../../public/assets/cartas/${card}.png`;
+  cardElement.src = `../assets/cartas/${card}.png`;
   cardElement.classList.add('cards');
 
   app.cardsContainerQS[turnPlayer].appendChild(cardElement);
